@@ -1,0 +1,50 @@
+{% extends 'include\base.html' %} {% block content %}
+<div class="search-box">
+    <div class="container menu-search">
+        <div class="search">
+            <form action="{% url 'filter' %}" method="GET">
+                <input type="text" name="q">
+            </form>
+        </div>
+        <div class="filters">
+            <form action="{% url 'filter' %}" method="GET" class="filters">
+                {% for category in view.get_categories %}
+                <div class="filter">
+                    <label for="category">
+                    <input type="checkbox" name="category" value="{{ category.id }}">
+                    {{ category.title }}
+                    </label>
+                </div>
+                {% endfor %}
+                <br> {% for age in view.get_age %}
+                <div class="filter">
+                    <label for="age">
+                    <input type="checkbox" name="age" value="{{ age.id }}">
+                    {{ age.name }}
+                    </label>
+                </div>
+                {% endfor %}
+                <button>Отфильтровать</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="container">
+        <div class="lessons">
+            {% for lesson in lesson_list %}
+            <div class="lesson">
+                <a href="{{ lesson.get_absolute_url }}">
+                    <div class="lesson-img">
+                        <img src="{{ lesson.image.url }}" alt="">
+                    </div>
+                    <h3>{{ lesson.title }}</h3>
+                    {% for book in lesson.book_set.all %}
+                    <a href="{{ book.bookurl }}">{{ book.title }}</a> {% endfor %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'include\base.html' %} {% block content %} {% load historyextras %}
+
+<div class="content-lesson">
+    <div class="container">
+        <div class="elective-detail">
+            <div class="elective-text">
+                {{ elective.text }}
+            </div>
+            <div class="elective-gallery">
+
+                {% gallery_list %}
+
+            </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_post' %}">Загрузить фотографию</a> {% endif %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

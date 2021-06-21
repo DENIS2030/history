@@ -1,0 +1,29 @@
+    <div class="chats">
+        <div class="chat-title" onclick="ChatViseble()">
+            <p>Чат</p>
+        </div>
+    <div class="chat showchat">
+    {% for message in message_list %}
+        {% if message.touser.id == user.id %}
+        <div class="to-message">
+            <p>{{ message.message }}</p>
+            <span>{{ message.date }}:{{ message.fromuser }}</span>
+            </div>
+        {% endif %}
+        <div class="from-message">
+        {% if message.fromuser.id == user.id %}
+            <p>{{ message.message }}</p>
+            
+            <span>{{ message.date }}:{{ message.fromuser }}</span>
+        {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    <form action="{% url 'sendmessage' %}" method="POST" class="showchat">
+        {% csrf_token %}
+        <input type="hidden" name="fromuser" value="{{ user.id }}">
+        <input type="hidden" name="touser" value =1>
+        <input type="text" name="message">
+        <button>Send</button>
+    </form>
+    </div>

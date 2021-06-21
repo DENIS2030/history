@@ -1,0 +1,18 @@
+{% extends 'include\base.html' %} {% block content %}
+<div class="content">
+    <div class="container">
+        <div class="electives">
+            <div class="elective">
+                {% for elective in elective_list %}
+                <a href="{{ elective.get_absolute_url }}">
+                    <p>{{ elective.get_category.title }}</p>
+                </a>
+                <p>{{ elective.get_category.description }}</p>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

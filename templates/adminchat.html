@@ -1,0 +1,45 @@
+{% extends 'include\base.html' %} {% block content %}
+{% load static %}
+    <div class="users">
+        {% for uuser in user_list %}
+        
+        
+        <div class="user">
+            <p>{{ uuser.username }}</p>
+            <a href="#" onclick="addMessage( {{uuser.id}} )">Ответить</a>
+            <div class="chat">
+                {% for message in message %}
+            
+                {% if message.touser.id == uuser.id and message.fromuser.id == 1 %}
+                <div class="to-message">
+                    <p>{{ message.message }}</p>
+                    <span>{{ message.date }}:{{ message.fromuser }}</span>
+                </div>
+                {% endif %}
+                <div class="from-message">
+                    {% if message.fromuser.id == uuser.id and message.touser.id == 1 %}
+                    <p>{{ message.message }}</p>
+                    <span>{{ message.date }}:{{ message.fromuser }}</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <form action="{% url 'sendmessage' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="fromuser" value=1>
+                <input type="hidden" name="touser" id="send" value="{{ uuser.id }}">
+                <input type="text" name="message">
+                <button>Отправить</button>
+            </form>
+        </div>
+        
+        {% endfor %}
+    </div>
+    
+    <script>
+        function addMessage(id) {
+
+            document.getElementById("send").value = id;
+        }
+    </script>
+{% endblock content %}

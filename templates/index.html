@@ -1,0 +1,65 @@
+{% extends 'include\base.html' %} {% block content %} {% load historyextras %} {% load static %}
+<div class="title">
+    <h1>
+        Сайт преподавателя Корсакова Дмитрия Генадьевича
+    </h1>
+</div>
+<div class="index-content">
+    <div class="container">
+        <div class="categories">
+            <div class="category-items">
+                <div class="category-item1" id="1">
+                    <div class="category-description">
+                        <a href="{% url 'lessons' %}">
+                            <p>Предметы
+                            </p>
+                            <div class="category-list">
+                                {% for category in category_list %}
+                                <p> {{ category.title }}</p>
+                                {% endfor %}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="category-item" id="2">
+                    <div class="category-description">
+                        <a href="{% url 'electives' %}">
+                            <p>Объединения
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="category-item" id="3">
+                    <div class="category-description">
+                        <a href="{% url 'achivments' %}">
+                            <p>Достижения преподавателя
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+<div class="content">
+    <div class="container">
+        <div class="multimedia">
+        
+            <div class="slider">
+                <i class="fas fa-6x fa-chevron-left" onclick="slideIndex(1)"></i>
+                {% slider_list %}
+                <i class="fas fa-6x fa-chevron-right" onclick="slideIndex(-1)"></i>
+            </div>
+        
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+
+    </div>
+</div>
+{% message_list user %}
+{% endblock content %}
